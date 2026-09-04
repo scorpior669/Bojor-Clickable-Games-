@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOJOR • FLAME BOND • 4 STAGES • $124B</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-black.png">
+<link rel="icon" type="image/png" href="icon-black.png">
+<meta name="theme-color" content="#FFD700">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="BOJOR">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#050505;color:#FFD700;font-family:sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:linear-gradient(90deg,#0a0a0a,#1a1500);border-bottom:2px solid #FFD700;font-family:'Cinzel';font-size:.9rem}
+#snd{background:#111;border:1px solid #FFD700;color:#FFD700;padding:6px 14px;border-radius:20px;cursor:pointer}
+#snd.on{background:#FFD700;color:#000;box-shadow:0 0 15px gold}
+main{display:flex;flex:1;overflow:hidden}
+#sidebar{width:280px;background:#0a0a0a;border-right:2px solid #222;padding:16px;display:flex;flex-direction:column;gap:12px}
+.escrow{background:linear-gradient(#1a1500,#0a0a0a);border:1px solid #FFD700;padding:14px;border-radius:12px;text-align:center;box-shadow:0 0 20px rgba(255,215,0,.2)}
+.map{display:flex;gap:8px;margin-top:8px} .dot{width:36px;height:36px;border-radius:50%;border:2px solid #333;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900}
+.dot.active{border-color:#FFD700;background:#FFD700;color:#000;box-shadow:0 0 15px gold;transform:scale(1.1)}
+.dot.unlocked{border-color:#00ff88;color:#00ff88;box-shadow:0 0 10px #00ff88}.dot.locked{opacity:.25}
+#gameArea{flex:1;background:radial-gradient(ellipse at center,#151515 0%,#000 85%);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:20px}
+#status{font-family:'Cinzel';font-size:1.15rem;letter-spacing:2px;text-align:center;margin-bottom:28px;text-shadow:0 0 15px gold;line-height:1.4}
+.orbs{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center}
+.orb{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel';font-weight:900;font-size:2.1rem;cursor:pointer;border:2px solid rgba(255,255,255,.35);box-shadow:0 0 25px currentColor,inset 0 0 20px rgba(255,255,255,.2);transition:.25s}
+.orb:hover{transform:scale(1.08)} .orb.active{transform:scale(1.18);box-shadow:0 0 45px currentColor,0 0 85px currentColor;border-color:#FFD700}
+#b{background:radial-gradient(circle at 30% 30%,#ffbb66,#ff4500);color:#fff}
+#o1{background:radial-gradient(circle at 30% 30%,#ffee88,#ffaa00);color:#000}
+#j{background:radial-gradient(circle at 30% 30%,#88eeff,#0099ff);color:#fff}
+#o2{background:radial-gradient(circle at 30% 30%,#88ff88,#00cc00);color:#000}
+#r{background:radial-gradient(circle at 30% 30%,#cc88ff,#8800ff);color:#fff}
+.grid{display:none;gap:14px;margin-top:10px} .grid.show{display:grid}
+.mini{width:88px;height:88px;border-radius:14px;background:#111;border:2px solid #FFD700;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;cursor:pointer;box-shadow:0 0 18px rgba(255,215,0,.3);transition:.2s;text-align:center}
+.mini:hover{transform:scale(1.07)} .mini.done{background:#00ff88;border-color:#00ff88;color:#000;box-shadow:0 0 25px #00ff88;transform:scale(0.9);opacity:.6;pointer-events:none}
+#vault{position:fixed;inset:0;background:radial-gradient(ellipse at center,rgba(20,15,0,.98),rgba(0,0,0,.98));z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px}
+#vault.open{display:flex;animation:fade .4s}
+.vaultDoor{width:380px;height:480px;background:linear-gradient(90deg,#2a1e00,#FFD700,#2a1e00);border:10px solid #FFD700;border-radius:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px gold;animation:door 2.2s ease-in-out forwards}
+.vaultInner{width:86%;height:86%;background:radial-gradient(#111,#000);border:2px solid #FFD700;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;text-align:center}
+@keyframes door{0%{transform:perspective(800px) rotateY(0) scale(1)}45%{transform:perspective(800px) rotateY(0) scale(1.05);box-shadow:0 0 80px gold}100%{transform:perspective(800px) rotateY(92deg) scale(1.3);opacity:0}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+#nextBtn{margin-top:28px;background:linear-gradient(90deg,#00ff88,#00cc66);color:#000;font-weight:900;border:none;padding:16px 36px;border-radius:12px;cursor:pointer;font-size:1.05rem;letter-spacing:1px;box-shadow:0 0 30px #00ff88;display:none;animation:pulse 1.2s infinite}
+#nextBtn.show{display:block}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+#final{font-size:2rem;font-family:'Cinzel';letter-spacing:5px;margin-top:24px;text-align:center;text-shadow:0 0 30px gold}
+</style>
+</head>
+<body>
+<header>
+<div>BOJOR • JAMAICA COLLECTION • STAGE <span id="sNum">1</span> • 11:15 • BOND UNBROKEN</div>
+<div style="display:flex;gap:10px;align-items:center"><span>$124B • 🔥 <span id="fCount">0</span></span><button id="snd">🔇 SOUND OFF</button></div>
+</header>
+<main>
+<div id="sidebar">
+<div class="escrow"><div style="font-family:'Cinzel';font-size:.85rem">ESCROW ACCOUNT - SECURED</div><div style="font-size:1.35rem;font-weight:900;color:#fff;margin-top:4px">$124,000,000,000</div><div style="font-size:.62rem;margin-top:6px;opacity:.8">Replaces win points • Visible on all pages</div><div style="font-size:.8rem;margin-top:8px;letter-spacing:1px">B • O(8) • J(Blegs) • O(8) • R</div></div>
+<div><div style="font-size:.7rem;opacity:.6;letter-spacing:1px">STAGE MAP - WIN TO UNLOCK NEXT</div><div class="map"><div class="dot active" id="d1">1</div><div class="dot locked" id="d2">2</div><div class="dot locked" id="d3">3</div><div class="dot locked" id="d4">4</div></div></div>
+<div style="font-size:.68rem;opacity:.45;line-height:1.5">Stage 1: B-O-J-O-R Order<br>Stage 2: Jamaica Icons<br>Stage 3: Blegs Jewelry Match<br>Stage 4: Final $124B Bond</div>
+<button onclick="location.reload()" style="margin-top:auto;background:#111;border:1px solid #333;color:#888;padding:8px;border-radius:6px;cursor:pointer">↻ Restart</button>
+</div>
+<div id="gameArea">
+<div id="status">STAGE 1: CLICK ORBS IN ORDER<br><span style="font-size:.85rem;opacity:.7">B → O → J → O → R TO OPEN VAULT</span></div>
+<div class="orbs" id="stage1orbs"><div class="orb" id="b" data-i="0">B</div><div class="orb" id="o1" data-i="1">O</div><div class="orb" id="j" data-i="2">J</div><div class="orb" id="o2" data-i="3">O</div><div class="orb" id="r" data-i="4">R</div></div>
+<div class="grid" id="stage2grid" style="grid-template-columns:repeat(3,90px)"><div class="mini">🇯🇲<br>JAMAICA</div><div class="mini">💎<br>DIAMOND</div><div class="mini">🔥<br>FLAME</div><div class="mini">👑<br>ROYAL</div><div class="mini">⛓️<br>BOND</div><div class="mini">💰<br>$124B</div></div>
+<div class="grid" id="stage3grid" style="grid-template-columns:repeat(4,88px)"><div class="mini" data-s3="B">B</div><div class="mini" data-s3="O">O</div><div class="mini" data-s3="J">J</div><div class="mini" data-s3="R">R</div><div class="mini" data-s3="R">R</div><div class="mini" data-s3="J">J</div><div class="mini" data-s3="O">O</div><div class="mini" data-s3="B">B</div></div>
+<div id="stage4" style="display:none;text-align:center"><div style="font-size:4rem">🏦</div><div style="font-family:'Cinzel';font-size:1.8rem;margin-top:12px">FINAL VAULT • $124B</div><button class="mini" style="margin:20px auto;width:220px;height:60px;border-radius:30px;font-size:1rem" onclick="winFinal()">🔓 CLAIM $124,000,000,000 ESCROW</button></div>
+</div>
+</main>
+<div id="vault">
+<div class="vaultDoor"><div class="vaultInner"><div style="font-size:3.5rem" id="vIcon">🔓</div><h2 id="vTitle" style="font-family:'Cinzel';margin-top:12px">VAULT OPENED</h2><div id="vDesc" style="color:#fff;margin-top:10px;line-height:1.4">$124,000,000,000<br>ESCROW SECURED<br>BOND UNBROKEN</div></div></div>
+<div id="final">B-O-J-O-R • BOND UNBROKEN</div>
+<button id="nextBtn" onclick="nextStage()">▶ ENTER NEXT STAGE</button>
+</div>
+<script>
+let ctx,sound=false,step=0,flames=0,stage=1,s2c=0,s3first=null,s3matched=0;
+function init(){if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)()}
+function tone(f,type='sine',d=.4,v=.35){if(!sound||!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(ctx.destination);g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+d);o.start();o.stop(ctx.currentTime+d)}
+function playVault(){tone(55,'sawtooth',2.2,.5);setTimeout(()=>{tone(523,'sine',.5,.5);tone(659,'sine',.5,.5);tone(784,'sine',.9,.5)},700)}
+document.getElementById('snd').onclick=function(){init();sound=!sound;this.textContent=sound?'🔊 SOUND ON - LIVE':'🔇 SOUND OFF';this.classList.toggle('on',sound);if(sound){tone(880,'sine',.15,.4)}};
+function bindStage1(){
+ document.querySelectorAll('#stage1orbs .orb').forEach(o=>{
+  o.onclick=()=>{
+   init();const i=+o.dataset.i;
+   if(i!==step){tone(140,'sawtooth',.6,.45);step=0;document.getElementById('status').innerHTML='❌ WRONG ORDER! START FROM B<br><span style="font-size:.8rem">B → O → J → O → R</span>';document.querySelectorAll('#stage1orbs .orb').forEach(x=>x.classList.remove('active'));setTimeout(()=>document.getElementById('status').innerHTML='STAGE 1: CLICK ORBS IN ORDER<br><span style="font-size:.85rem;opacity:.7">B → O → J → O → R TO OPEN VAULT</span>',1400);return}
+   tone(880,'sine',.15,.4);setTimeout(()=>tone(1320,'sine',.2,.3),70);o.classList.add('active');flames++;document.getElementById('fCount').textContent=flames;step++;
+   if(step>=5){setTimeout(()=>{playVault();document.getElementById('vault').classList.add('open');document.getElementById('vTitle').textContent='STAGE 1 CLEARED!';document.getElementById('vDesc').innerHTML='BOND UNBROKEN<br>ESCROW STILL $124B<br>JAMAICA UNLOCKED...';document.getElementById('final').textContent='B-O-J-O-R UNLOCKED → STAGE 2';document.getElementById('nextBtn').textContent='▶ ENTER STAGE 2 - JAMAICA COLLECTION';document.getElementById('nextBtn').classList.add('show');document.getElementById('d2').classList.remove('locked');document.getElementById('d2').classList.add('unlocked')},500);} else document.getElementById('status').innerHTML=`GOOD! ${step}/5<br><span style="font-size:.9rem">NEXT: ${['B','O','J','O','R'][step]}</span>`;
+  }
+ });
+}
+bindStage1();
+function nextStage(){
+ document.getElementById('vault').classList.remove('open');document.getElementById('nextBtn').classList.remove('show');
+ if(stage===1){stage=2;document.getElementById('sNum').textContent='2';document.getElementById('status').innerHTML='STAGE 2: JAMAICA COLLECTION<br><span style="font-size:.85rem;color:#00ff88">Collect all 6 icons - Fast!</span>';document.getElementById('stage1orbs').style.display='none';document.getElementById('stage2grid').classList.add('show');document.getElementById('d1').classList.remove('active');document.getElementById('d2').classList.add('active');document.getElementById('d2').classList.remove('unlocked');bindStage2()}
+ else if(stage===2){stage=3;document.getElementById('sNum').textContent='3';document.getElementById('status').innerHTML='STAGE 3: BLEGS JEWELRY VAULT<br><span style="font-size:.85rem;color:#88eeff">Match pairs: B-B, O-O, J-J, R-R</span>';document.getElementById('stage2grid').classList.remove('show');document.getElementById('stage3grid').classList.add('show');document.getElementById('d2').classList.remove('active');document.getElementById('d3').classList.add('active');document.getElementById('d3').classList.remove('locked');bindStage3()}
+ else if(stage===3){stage=4;document.getElementById('sNum').textContent='4';document.getElementById('status').innerHTML='FINAL STAGE: $124B ESCROW<br><span style="font-size:.85rem;color:gold">Claim your Bond Unbroken</span>';document.getElementById('stage3grid').classList.remove('show');document.getElementById('stage4').style.display='block';document.getElementById('d3').classList.remove('active');document.getElementById('d4').classList.add('active');document.getElementById('d4').classList.remove('locked')}
+}
+function bindStage2(){
+ document.querySelectorAll('#stage2grid .mini').forEach(m=>{
+  m.onclick=()=>{init();tone(1000,'sine',.18,.4);m.classList.add('done');s2c++;if(s2c>=6){setTimeout(()=>{playVault();document.getElementById('vault').classList.add('open');document.getElementById('vTitle').textContent='STAGE 2 CLEARED!';document.getElementById('vDesc').innerHTML='JAMAICA MASTER<br>6/6 ICONS COLLECTED<br>BLEGS VAULT UNLOCKED';document.getElementById('final').textContent='JAMAICA COLLECTION MASTERED';document.getElementById('nextBtn').textContent='▶ ENTER STAGE 3 - BLEGS JEWELRY';document.getElementById('nextBtn').classList.add('show');document.getElementById('d3').classList.remove('locked');document.getElementById('d3').classList.add('unlocked')},400);}}
+ });
+}
+function bindStage3(){
+ document.querySelectorAll('#stage3grid .mini').forEach(m=>{
+  m.onclick=()=>{
+   init();if(m.classList.contains('done')||m===s3first)return;tone(700,'sine',.15,.4);m.style.background='gold';m.style.color='#000';
+   if(!s3first){s3first=m;return}
+   if(s3first.dataset.s3===m.dataset.s3){tone(523,'sine',.3,.5);setTimeout(()=>tone(659,'sine',.3,.5),120);setTimeout(()=>tone(784,'sine',.5,.5),240);s3first.classList.add('done');m.classList.add('done');s3first=null;s3matched+=2;if(s3matched>=8){setTimeout(()=>{playVault();document.getElementById('vault').classList.add('open');document.getElementById('vTitle').textContent='STAGE 3 CLEARED!';document.getElementById('vDesc').innerHTML='BLEGS JEWELRY MASTER<br>ALL PAIRS MATCHED<br>FINAL VAULT UNLOCKED';document.getElementById('final').textContent='BLEGS VAULT CRACKED → FINAL';document.getElementById('nextBtn').textContent='▶ ENTER FINAL STAGE - $124B';document.getElementById('nextBtn').classList.add('show');document.getElementById('d4').classList.remove('locked');document.getElementById('d4').classList.add('unlocked')},500);}} else {tone(150,'sawtooth',.5,.4);setTimeout(()=>{s3first.style.background='#111';s3first.style.color='gold';m.style.background='#111';m.style.color='gold';s3first=null},600);}
+  }
+ });
+}
+function winFinal(){init();playVault();for(let i=0;i<3;i++)setTimeout(()=>{tone(523+i*100,'sine',.8,.5)},i*200);document.getElementById('vault').classList.add('open');document.getElementById('vIcon').textContent='💎';document.getElementById('vTitle').textContent='BOND UNBROKEN - MASTER!';document.getElementById('vDesc').innerHTML='<span style="color:gold;font-size:1.3rem;font-weight:900">$124,000,000,000</span><br>ESCROW CLAIMED<br>JAMAICA COLLECTION<br>ALL 4 STAGES CLEARED<br><br>BOJOR • FLAME BOND';document.getElementById('final').innerHTML='🏆 $124B ESCROW CLAIMED 🏆<br><span style="font-size:1rem">JAMAICA COLLECTION COMPLETE</span>';document.getElementById('nextBtn').textContent='↻ PLAY AGAIN - BOJOR';document.getElementById('nextBtn').onclick=()=>location.reload();document.getElementById('nextBtn').classList.add('show');}
+</script>
+</body>
+</html>
